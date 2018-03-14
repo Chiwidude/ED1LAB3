@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Laboratorio3ED1.Models
 {
-    public class Partido
+    public class Partido 
     {
 
         private DateTime fecha;
@@ -40,8 +40,5 @@ namespace Laboratorio3ED1.Models
         public string Estadio { get => estadio; set => estadio = value; }
         public int Npartido_ { get => Npartido; set => Npartido = value; }
 
-       
-      
-        
     }
 }

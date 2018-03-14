@@ -137,14 +137,27 @@ namespace EstructuraDeDatos
                         didRotate = true;
                     } else
                     {
+                        RotaciónDerecha(node);
                         didRotate = true;
                     }
                     exit = true;
+                } else if( node.Factor == 2)
+                {
+                    if(node.Derecho.Factor == -1)
+                    {
+                        didRotate = true;
+                    }
+                    else
+                    {
+                        RotaciónIzquierda(node);
+                        didRotate = true;
+                    }
                 }
 
             }
         }
 
+        
         public void PostFijo(Recorrido<T> Path)
         {
             throw new NotImplementedException();
@@ -157,6 +170,101 @@ namespace EstructuraDeDatos
         public void Infijo(Recorrido<T> Path)
         {
             throw new NotImplementedException();
+        }
+
+        protected void RotaciónDerecha(Nodo<T> nodo)
+        {
+            var Rootparent = nodo.Padre as Nodo<T>;
+            var Q = nodo as Nodo<T>;
+            var P = Q.Izquierdo as Nodo<T>;
+            var C = P.Derecho as Nodo<T>;
+
+            if (nodo.Padre is Nodo<T> RootParent)
+            {
+                if (RootParent.Derecho == Q)
+                {
+                    RootParent.Derecho = P;
+                }
+                else
+                {
+                    RootParent.Izquierdo = P;
+                }
+
+            }
+            else
+            {
+                root = P as Nodo<T>;
+                root.Padre = null;
+            }
+
+            Q.Izquierdo = C;
+            P.Derecho = Q;
+            Q.Padre = P;
+
+            if(C != null)
+                C.Padre = Q;
+                P.Padre = Rootparent;
+            
+
+            if(P.Factor == 0)
+            {
+                Q.Factor = -1;
+                P.Factor = 1;
+            }
+            else
+            {
+                Q.Factor = 0;
+                P.Factor = 0;
+            }
+
+
+
+
+
+        }
+
+        protected void RotaciónIzquierda(Nodo<T> nodo)
+        {
+            var RootNode = nodo.Padre;
+            var P = nodo;
+            var Q = P.Derecho;
+            var B = Q.Izquierdo;
+
+            if(RootNode != null)
+            {
+                if(RootNode.Derecho == P)
+                {
+                    RootNode.Derecho = Q;
+                }
+                else
+                {
+                    RootNode.Izquierdo = Q;
+                }
+            } else
+            {
+                root = Q;
+                root.Padre = null;
+            }
+
+            P.Derecho = Q.Izquierdo;
+            Q.Izquierdo = P;
+            P.Padre = Q;
+
+            if(B != null)
+                B.Padre = P;
+                Q.Padre = RootNode;
+
+            if(Q.Factor == 0)
+            {
+                P.Factor = 1;
+                Q.Factor = -1;
+            }
+            else
+            {
+                P.Factor = 0;
+                Q.Factor = 0;
+            }
+            
         }
     }
 }

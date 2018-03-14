@@ -12,7 +12,7 @@ namespace EstructuraDeDatos
 
         public Nodo<T> Izquierdo;
 
-        public Nodo<T> padre;
+         Nodo<T> padre;
 
         public T value;
 
