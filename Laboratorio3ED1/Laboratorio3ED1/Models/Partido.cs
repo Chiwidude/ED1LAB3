@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Laboratorio3ED1.Models
 {
-    public class Partido 
+    public class Partido : IComparable
     {
 
         private DateTime fecha;
@@ -40,5 +40,10 @@ namespace Laboratorio3ED1.Models
         public string Estadio { get => estadio; set => estadio = value; }
         public int Npartido_ { get => Npartido; set => Npartido = value; }
 
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
-}
+
+ }

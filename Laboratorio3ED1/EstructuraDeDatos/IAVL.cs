@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace EstructuraDeDatos
 {
     public delegate void Recorrido<T>(Nodo<T> node);
+    public delegate int CompareTo<T>(T value, T value2);
     public interface IAVL<T>
     {
         

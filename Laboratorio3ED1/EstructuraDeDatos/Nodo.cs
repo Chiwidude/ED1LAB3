@@ -25,7 +25,7 @@ namespace EstructuraDeDatos
         /// <param name="izauierdo"></param> Referencia Nodo Izquierdo
         /// <param name="padre"></param>Referencia al Padre del nodo
 
-        public Nodo(T value, Nodo<T> derecho, Nodo<T> izquierdo)
+        public Nodo(T value, Nodo<T> izquierdo, Nodo<T> derecho)
         {
             this.value = value;
             this.Derecho = derecho;
