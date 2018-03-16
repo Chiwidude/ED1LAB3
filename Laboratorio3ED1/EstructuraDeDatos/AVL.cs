@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace EstructuraDeDatos
 {
     public class AVL<T> : IAVL<T> where T: IComparable
     {
-        
+
         public Nodo<T> root;
         CompareTo<T> Comparador;
 
-        
+        #region Constructores
 
         public AVL()
         {
@@ -25,29 +26,33 @@ namespace EstructuraDeDatos
             
             this.Comparador = compare;
         }
+        #endregion
+
+        #region Operaciones_Básicas
+
         public Nodo<T> Buscar(T value)
         {
+            var timer = new LogFile();
             var auxiliar = root;
+#pragma warning disable CC0031 // Check for null before calling a delegate
             while (Comparador(auxiliar.value,value) != 0)
+#pragma warning restore CC0031 // Check for null before calling a delegate
             {
-                if (Comparador(value, auxiliar.value) < 0)
-                {
-                    auxiliar = auxiliar.Izquierdo;
-                }
-                else
-                {
-                    auxiliar = auxiliar.Derecho;
-                }
+#pragma warning disable CC0031 // Check for null before calling a delegate
+                  auxiliar = Comparador(value, auxiliar.value) < 0 ? auxiliar.Izquierdo : auxiliar.Derecho;
                 if (auxiliar == null)
                 {
-                    return null;
+                    timer.Logcreate("Búsqueda sin éxito");
+                        return null;
                 }
             }
+            timer.Logcreate("Búsqueda con éxito");
             return auxiliar;
         }
 
         public Nodo<T> Eliminar(T value)
         {
+            var timer = new LogFile();
             var auxiliar = root;
             var padre = null as Nodo<T>;
             var esHijoIz = true;
@@ -78,16 +83,19 @@ namespace EstructuraDeDatos
                     if (esHijoIz)
                     {
                         padre.Izquierdo = null;
+                        timer.Logcreate("Eliminación");
                     }
                     else
                     {
                         padre.Derecho = null;
+                        timer.Logcreate("Eliminación");
                     }
                     Balancear(padre, false, esHijoIz);
                 }
                 else
                 {
                     root = null;
+                    timer.Logcreate("Eliminación");
                 }
             }
             else if (auxiliar.Derecho == null) // solo hijo Izquierdo
@@ -98,11 +106,13 @@ namespace EstructuraDeDatos
                     {
                         padre.Izquierdo = auxiliar.Izquierdo;
                         auxiliar.Izquierdo.Padre = padre;
+                        timer.Logcreate("Eliminación");
                     }
                     else
                     {
                         padre.Derecho = auxiliar.Izquierdo;
                         auxiliar.Izquierdo.Padre = padre;
+                        timer.Logcreate("Eliminación");
                     }
                     Balancear(padre, false, esHijoIz);
                 }
@@ -110,6 +120,7 @@ namespace EstructuraDeDatos
                 {
                     auxiliar.Izquierdo.Padre = null;
                     root = auxiliar.Izquierdo;
+                    timer.Logcreate("Eliminación");
                 }
             }
             else if (auxiliar.Izquierdo == null) //solo hijo Derecho
@@ -121,11 +132,13 @@ namespace EstructuraDeDatos
                     {
                         padre.Izquierdo = auxiliar.Derecho;
                         auxiliar.Derecho.Padre = padre;
+                        timer.Logcreate("Eliminación");
                     }
                     else
                     {
                         padre.Derecho = auxiliar.Derecho;
                         auxiliar.Derecho.Padre = padre;
+                        timer.Logcreate("Eliminación");
                     }
                     Balancear(padre, false, esHijoIz);
                 }
@@ -133,6 +146,7 @@ namespace EstructuraDeDatos
                 {
                     auxiliar.Derecho.Padre = null;
                     root = auxiliar.Derecho;
+                    timer.Logcreate("Eliminación");
                 }
             }
 
@@ -143,6 +157,7 @@ namespace EstructuraDeDatos
                 {
                     root = reemplazo;
                     root.Padre = null;
+                    timer.Logcreate("Eliminación");
                     Balancear(root, false, esHijoIz);
                    
                 }
@@ -150,15 +165,20 @@ namespace EstructuraDeDatos
                 {
                     padre.Izquierdo = reemplazo;
                     padre.Izquierdo.Padre = padre;
+                    timer.Logcreate("Eliminación");
                     Balancear(padre.Izquierdo, false, esHijoIz);
                 }
                 else
                 {
                     padre.Derecho = reemplazo;
-                   
+                    timer.Logcreate("Eliminación");
+                    Balancear(padre.Derecho, false, esHijoIz);
+
                 }
                 reemplazo.Izquierdo = auxiliar.Izquierdo;
-                
+                timer.Logcreate("Eliminación");
+
+
             }
                 return auxiliar;
        }
@@ -188,23 +208,26 @@ namespace EstructuraDeDatos
             return reemplazo;
         }
 
-        
 
         public void Insertar(T value)
         {
+            var timer = new LogFile();
             var newnode = new Nodo<T>(value);
             if(root == null)
             {
                 root = newnode;
+                timer.Logcreate("Inserción");
             } else
             {
                 InsertarInterno(newnode, root);
+                timer.Logcreate("Inserción");
             }
 
         }
 
         private void InsertarInterno(Nodo<T> newnode, Nodo<T> padre)
         {
+
             if (padre != null)
             {
                 if (Comparador(newnode.value,padre.value) < 0)
@@ -241,7 +264,7 @@ namespace EstructuraDeDatos
             }
 
         }
-        
+        #endregion
 
         #region Recorridos
         public void PostFijo(Recorrido<T> Path)
@@ -483,6 +506,7 @@ namespace EstructuraDeDatos
         }
         private void Balancear(Nodo<T> node, bool isnew, bool isleft)
         {
+            var timer = new LogFile();
             var exit = false;
 
             while ((node != null) && !exit)
@@ -505,6 +529,7 @@ namespace EstructuraDeDatos
                     if (node.Factor == 0)
 
                         exit = true;
+                    timer.Logcreate("Balanceo");
 
                     if (isleft)
 
@@ -517,7 +542,10 @@ namespace EstructuraDeDatos
 
                 }
                 if (node.Factor == 0)
+                {
                     exit = true;
+                    timer.Logcreate("Balanceo");
+                }
 
                 else if (node.Factor == -2)
                 {
@@ -532,6 +560,7 @@ namespace EstructuraDeDatos
                         didRotate = true;
                     }
                     exit = true;
+                    timer.Logcreate("Balanceo");
                 }
                 else if (node.Factor == 2)
                 {
@@ -546,6 +575,7 @@ namespace EstructuraDeDatos
                         didRotate = true;
                     }
                     exit = true;
+                    timer.Logcreate("Balanceo");
                 }
                 if ((didRotate) && (node.Padre != null) && (!isnew))
                     node = node.Padre;

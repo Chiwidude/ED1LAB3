@@ -10,14 +10,7 @@ namespace Laboratorio3ED1.Clases
     {
         public int CompareByMatchNumber(Partido partido1, Partido partido2)
         {
-            if (partido1 == null || partido2 == null)
-            {
-                return 1;
-            }
-            else
-            {
-                return partido1.Npartido_.CompareTo(partido2.Npartido_);
-            }
+            return partido1 == null || partido2 == null ? 1 : partido1.Npartido_.CompareTo(partido2.Npartido_);
         }
         public  int CompareByDate(Partido partido1, Partido partido2)
         {
