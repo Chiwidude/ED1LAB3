@@ -8,7 +8,11 @@ namespace Laboratorio3ED1.Controllers
     public class PartidoController : Controller
     {
         // GET: Partido
-        public ActionResult Index()
+        public ActionResult IndexFecha()
+        {
+            return View();
+        }
+        public ActionResult IndexNpartido()
         {
             return View();
         }

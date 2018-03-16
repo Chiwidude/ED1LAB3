@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -33,11 +34,17 @@ namespace Laboratorio3ED1.Models
             
         }
 
+        [Display(Name = "Fecha de partido")]
         public DateTime Fecha { get => fecha; set => fecha = value; }
+        [Display(Name = "País 1")]
         public string Equipo1_ { get => Equipo1; set => Equipo1 = value; }
+        [Display(Name = "País 2")]
         public string Equipo2_ { get => Equipo2; set => Equipo2 = value; }
+        [Display(Name = "Grupo")]
         public string Grupo { get => grupo; set => grupo = value; }
+        [Display(Name = "Estadio")]
         public string Estadio { get => estadio; set => estadio = value; }
+        [Display(Name = "No. de Partido")]
         public int Npartido_ { get => Npartido; set => Npartido = value; }
 
         public int CompareTo(object obj)
