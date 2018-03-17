@@ -166,13 +166,13 @@ namespace EstructuraDeDatos
                     padre.Izquierdo = reemplazo;
                     padre.Izquierdo.Padre = padre;
                     timer.Logcreate("Eliminación");
-                    Balancear(padre.Izquierdo, false, esHijoIz);
+                    Balancear(padre, false, esHijoIz);
                 }
                 else
                 {
                     padre.Derecho = reemplazo;
                     timer.Logcreate("Eliminación");
-                    Balancear(padre.Derecho, false, esHijoIz);
+                    Balancear(padre, false, esHijoIz);
 
                 }
                 reemplazo.Izquierdo = auxiliar.Izquierdo;
