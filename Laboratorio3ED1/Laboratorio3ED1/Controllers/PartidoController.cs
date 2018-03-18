@@ -3,90 +3,169 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Laboratorio3ED1.Singleton;
+using Laboratorio3ED1.Models;
+using System.Net;
+
 namespace Laboratorio3ED1.Controllers
 {
     public class PartidoController : Controller
     {
+        readonly DBconnection data = DBconnection.getInstance;
+
         // GET: Partido
         public ActionResult IndexFecha()
         {
-            return View();
+            try
+            {
+                if (data.Orden == 0)
+                {
+                    return View(data.AVlFecha.Infijo());
+                }
+                else if (data.Orden == 1)
+                {
+                    return View(data.AVlFecha.Prefijo());
+                }
+                else
+                {
+                    return View(data.AVlFecha.PostFijo());
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+
         }
         public ActionResult IndexNpartido()
         {
-            return View();
+            try
+            {
+                if (data.Orden == 0)
+                {
+                    return View(data.AVLNpartido.Infijo());
+                }
+                else if (data.Orden == 1)
+                {
+                    return View(data.AVLNpartido.Prefijo());
+                }
+                else
+                {
+                    return View(data.AVLNpartido.PostFijo());
+                }
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        // GET: Partido/Details/5
-        public ActionResult Details(int id)
+        
+        // GET: Partido/CreateFecha
+        public ActionResult CreateFecha()
         {
             return View();
         }
 
-        // GET: Partido/Create
-        public ActionResult Create()
+        // Get: Partido/CreateNpartido
+        public ActionResult CreateNpartido()
         {
             return View();
         }
-
         // POST: Partido/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFecha([Bind(Include = "Fecha,Equipo1_,Equipo2_,Grupo,Estadio, Npartido_")] Partido Partido_)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                data.AVlFecha.Insertar(Partido_);
+                return RedirectToAction(nameof(IndexFecha));
             }
-            catch
-            {
-                return View();
-            }
+            return View(Partido_);
+           
         }
-
-        // GET: Partido/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Partido/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNPartido([Bind(Include = "Fecha,Equipo1_,Equipo2_,Grupo,Estadio, Npartido_")] Partido Partido_)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                data.AVLNpartido.Insertar(Partido_);
+                return RedirectToAction(nameof(IndexNpartido));
+            }
+            return View(Partido_);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
+
 
         // GET: Partido/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteFecha(DateTime fecha_, string equipo1, string equipo2)
         {
-            return View();
+            var DelFecha = new Partido(fecha_, equipo1, equipo2, "", "", 0);
+            if(DelFecha.Fecha == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var match = data.AVlFecha.Buscar(DelFecha);
+            if(match == null)
+            {
+                return HttpNotFound();
+            }
+            return View(match);
         }
 
         // POST: Partido/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost,ActionName(nameof(DeleteFecha))]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteFechaConfirmed(DateTime fecha_, string equipo1, string equipo2)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var DelFecha = new Partido(fecha_, equipo1, equipo2, "", "", 0);
+                data.AVlFecha.Eliminar(DelFecha);
+                return RedirectToAction(nameof(IndexFecha));
             }
+#pragma warning disable CC0003 // Your catch should include an Exception
             catch
             {
                 return View();
             }
+#pragma warning restore CC0003 // Your catch should include an Exception
+        }
+
+        public ActionResult DeleteNpartido(int Npartido)
+        {
+            var PartidoEliminar = new Partido(default(DateTime) , "", " ", " ", " ", Npartido);
+
+            if(PartidoEliminar.Npartido_ == default(int))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var match = data.AVLNpartido.Buscar(PartidoEliminar);
+            if(match == null)
+            {
+                return HttpNotFound();
+            }
+            return View(match);
+        }
+        [HttpPost, ActionName(nameof(DeleteNpartido))]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteNpartidoConfirmed(int Npartido)
+        {
+            try
+            {
+                var DelFecha = new Partido(default(DateTime),"", "", "", "", Npartido);
+                data.AVlFecha.Eliminar(DelFecha);
+                return RedirectToAction(nameof(IndexFecha));
+            }
+#pragma warning disable CC0003 // Your catch should include an Exception
+            catch
+            {
+                return View();
+            }
+#pragma warning restore CC0003 // Your catch should include an Exception
         }
     }
 }

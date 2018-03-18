@@ -33,6 +33,14 @@ namespace Laboratorio3ED1.Models
             Npartido_ = npartido;
             
         }
+        public Partido()
+        {
+            this.Equipo1_ = null;
+            this.Equipo2_ = null;
+            this.Estadio = null;
+            this.Grupo = null;
+            this.Npartido_ = default(int);
+        }
 
         [Display(Name = "Fecha de partido")]
         public DateTime Fecha { get => fecha; set => fecha = value; }

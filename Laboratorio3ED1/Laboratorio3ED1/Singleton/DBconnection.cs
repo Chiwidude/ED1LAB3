@@ -17,7 +17,8 @@ namespace Laboratorio3ED1.Singleton
 
         public AVL<Partido> AVlFecha = new AVL<Partido>(Comparador_.CompareByDate);
         public AVL<Partido> AVLNpartido = new AVL<Partido>(Comparador_.CompareByMatchNumber);
-       
+        public List<Partido> Fechas = new List<Partido>();
+        public int Orden { get; set; }
 
 
         public static DBconnection getInstance

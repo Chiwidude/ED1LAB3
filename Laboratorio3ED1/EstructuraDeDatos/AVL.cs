@@ -11,6 +11,7 @@ namespace EstructuraDeDatos
     {
 
         public Nodo<T> root;
+        public List<T> mylist;
         CompareTo<T> Comparador;
 
         #region Constructores
@@ -267,19 +268,55 @@ namespace EstructuraDeDatos
         #endregion
 
         #region Recorridos
-        public void PostFijo(Recorrido<T> Path)
+        private void PostFijo_(Nodo<T> node)
         {
-            throw new NotImplementedException();
+            if(node != null)
+            {
+                PostFijo_(node.Izquierdo);
+                PostFijo_ (node.Derecho);
+                mylist.Add(node.value);
+            }
         }
 
-        public void Prefijo(Recorrido<T> Path)
+        private void Prefijo_(Nodo<T> node)
         {
-            throw new NotImplementedException();
+            if (node != null)
+            {
+                mylist.Add(node.value);
+                Prefijo_(node.Izquierdo);
+                Prefijo_(node.Derecho);
+               
+            }
         }
-        public void Infijo(Recorrido<T> Path)
+        private void Infijo_(Nodo<T> node)
         {
-            throw new NotImplementedException();
+           
+            Infijo_(node.Izquierdo);
+            mylist.Add(node.value);
+            Infijo_(node.Derecho);
         }
+       public  List<T> Infijo()
+        {
+            mylist = new List<T>();
+            Infijo_(root);
+            return mylist;
+        }
+
+       public List<T> Prefijo()
+        {
+            mylist = new List<T>();
+            Prefijo_(root);
+            return mylist;
+        }
+
+        public List<T> PostFijo()
+        {
+            mylist = new List<T>();
+            PostFijo_(root);
+            return mylist;
+        }
+
+
 
         #endregion
         #region Rotaciones
@@ -599,6 +636,7 @@ namespace EstructuraDeDatos
 
             }
         }
+
         #endregion
 
     }
