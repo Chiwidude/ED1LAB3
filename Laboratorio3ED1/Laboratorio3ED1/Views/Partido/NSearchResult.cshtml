@@ -1,0 +1,66 @@
+﻿@model Laboratorio3ED1.Models.Partido
+
+@{
+    ViewBag.Title = "NSearchResult";
+}
+
+<h2>NSearchResult</h2>
+
+<div>
+    <h4>Partido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo1_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo1_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo2_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo2_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grupo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grupo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estadio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estadio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Npartido_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Npartido_)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

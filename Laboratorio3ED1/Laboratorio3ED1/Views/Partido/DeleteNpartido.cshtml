@@ -1,0 +1,72 @@
+﻿@model Laboratorio3ED1.Models.Partido
+
+@{
+    ViewBag.Title = "DeleteNpartido";
+}
+
+<h2>DeleteNpartido</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Partido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo1_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo1_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo2_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo2_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Grupo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grupo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estadio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estadio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Npartido_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Npartido_)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "IndexNpartido")
+        </div>
+    }
+</div>

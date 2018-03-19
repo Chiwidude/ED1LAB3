@@ -11,57 +11,24 @@ namespace Laboratorio3ED1.Controllers
 {
     public class PartidoController : Controller
     {
-        readonly DBconnection data = DBconnection.getInstance;
+        public DBconnection data = DBconnection.getInstance;
 
         // GET: Partido
         public ActionResult IndexFecha()
         {
-            try
-            {
-                if (data.Orden == 0)
-                {
-                    return View(data.AVlFecha.Infijo());
-                }
-                else if (data.Orden == 1)
-                {
-                    return View(data.AVlFecha.Prefijo());
-                }
-                else
-                {
-                    return View(data.AVlFecha.PostFijo());
-                }
-            }
-            catch
-            {
-                return View();
-            }
 
 
+
+            return View(data.AVlFecha.Infijo());
         }
         public ActionResult IndexNpartido()
         {
-            try
-            {
-                if (data.Orden == 0)
-                {
-                    return View(data.AVLNpartido.Infijo());
-                }
-                else if (data.Orden == 1)
-                {
-                    return View(data.AVLNpartido.Prefijo());
-                }
-                else
-                {
-                    return View(data.AVLNpartido.PostFijo());
-                }
-            }
-            catch
-            {
-                return View();
-            }
+
+            return View(data.AVLNpartido.Infijo());
+
         }
 
-        
+
         // GET: Partido/CreateFecha
         public ActionResult CreateFecha()
         {
@@ -84,7 +51,7 @@ namespace Laboratorio3ED1.Controllers
                 return RedirectToAction(nameof(IndexFecha));
             }
             return View(Partido_);
-           
+
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -101,28 +68,31 @@ namespace Laboratorio3ED1.Controllers
 
 
         // GET: Partido/Delete/5
-        public ActionResult DeleteFecha(DateTime fecha_, string equipo1, string equipo2)
+        public ActionResult DeleteFecha(long id, string equipo1, string equipo2)
+
         {
+            var fecha_ = DateTime.FromBinary(id);
             var DelFecha = new Partido(fecha_, equipo1, equipo2, "", "", 0);
-            if(DelFecha.Fecha == null)
+            if (DelFecha.Fecha == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var match = data.AVlFecha.Buscar(DelFecha);
-            if(match == null)
+            if (match == null)
             {
                 return HttpNotFound();
             }
-            return View(match);
+            return View(match.value);
         }
 
         // POST: Partido/Delete/5
-        [HttpPost,ActionName(nameof(DeleteFecha))]
+        [HttpPost, ActionName(nameof(DeleteFecha))]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteFechaConfirmed(DateTime fecha_, string equipo1, string equipo2)
+        public ActionResult DeleteFechaConfirmed(long id, string equipo1, string equipo2)
         {
             try
             {
+                var fecha_ = DateTime.FromBinary(id);
                 var DelFecha = new Partido(fecha_, equipo1, equipo2, "", "", 0);
                 data.AVlFecha.Eliminar(DelFecha);
                 return RedirectToAction(nameof(IndexFecha));
@@ -135,30 +105,30 @@ namespace Laboratorio3ED1.Controllers
 #pragma warning restore CC0003 // Your catch should include an Exception
         }
 
-        public ActionResult DeleteNpartido(int Npartido)
+        public ActionResult DeleteNpartido(int id)
         {
-            var PartidoEliminar = new Partido(default(DateTime) , "", " ", " ", " ", Npartido);
+            var PartidoEliminar = new Partido(default(DateTime), "", " ", " ", " ", id);
 
-            if(PartidoEliminar.Npartido_ == default(int))
+            if (PartidoEliminar.Npartido_ == default(int))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var match = data.AVLNpartido.Buscar(PartidoEliminar);
-            if(match == null)
+            if (match == null)
             {
                 return HttpNotFound();
             }
-            return View(match);
+            return View(match.value);
         }
         [HttpPost, ActionName(nameof(DeleteNpartido))]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteNpartidoConfirmed(int Npartido)
+        public ActionResult DeleteNpartidoConfirmed(int id)
         {
             try
             {
-                var DelFecha = new Partido(default(DateTime),"", "", "", "", Npartido);
-                data.AVlFecha.Eliminar(DelFecha);
-                return RedirectToAction(nameof(IndexFecha));
+                var DelFecha = new Partido(default(DateTime), "", "", "", "", id);
+                data.AVLNpartido.Eliminar(DelFecha);
+                return RedirectToAction(nameof(IndexNpartido));
             }
 #pragma warning disable CC0003 // Your catch should include an Exception
             catch
@@ -166,6 +136,61 @@ namespace Laboratorio3ED1.Controllers
                 return View();
             }
 #pragma warning restore CC0003 // Your catch should include an Exception
+        }
+
+        public ActionResult SearchF()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchF(Partido Match)
+        {
+            data.Fechas.Clear();
+            try
+            {
+                
+                data.Fechas = data.AVlFecha.Infijo().FindAll(x => x.Fecha == Match.Fecha);
+                return RedirectToAction(nameof(SearchResult));
+            }
+#pragma warning disable CC0003 // Your catch should include an Exception
+            catch
+            {
+                TempData["msg"] = "<script>alert('DATO NO ENCONTRADO');</script>";
+                return View();
+            }
+#pragma warning restore CC0003 // Your catch should include an Exception
+        }
+
+        public ActionResult SearchResult()
+        {
+            return View(data.Fechas);
+        }
+        public ActionResult SearchN()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public ActionResult SearchN(Partido Match)
+        {
+            try
+            {
+                var partidob = data.AVLNpartido.Buscar(Match);
+                return RedirectToAction(nameof(NSearchResult), new { id = partidob.value });
+            }
+#pragma warning disable CC0003 // Your catch should include an Exception
+            catch
+            {
+                TempData["msg"] = "<script>alert('DATO NO ENCONTRADO');</script>";
+                return View();
+            }
+#pragma warning restore CC0003 // Your catch should include an Exception
+        }
+        public ActionResult NSearchResult(Partido id)
+        {
+            return View(id);
         }
     }
 }

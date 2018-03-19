@@ -290,10 +290,12 @@ namespace EstructuraDeDatos
         }
         private void Infijo_(Nodo<T> node)
         {
-           
-            Infijo_(node.Izquierdo);
-            mylist.Add(node.value);
-            Infijo_(node.Derecho);
+            if (node != null)
+            {
+                Infijo_(node.Izquierdo);
+                mylist.Add(node.value);
+                Infijo_(node.Derecho);
+            }
         }
        public  List<T> Infijo()
         {
