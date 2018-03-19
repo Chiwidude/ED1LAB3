@@ -191,6 +191,12 @@
     <Content Include="Views\Partido\IndexNpartido.cshtml" />
     <Content Include="Views\Partido\CreateFecha.cshtml" />
     <Content Include="Views\Partido\CreateNPartido.cshtml" />
+    <Content Include="Views\Partido\DeleteFecha.cshtml" />
+    <Content Include="Views\Partido\DeleteNpartido.cshtml" />
+    <Content Include="Views\Partido\SearchResult.cshtml" />
+    <Content Include="Views\Partido\SearchF.cshtml" />
+    <Content Include="Views\Partido\SearchN.cshtml" />
+    <Content Include="Views\Partido\NSearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

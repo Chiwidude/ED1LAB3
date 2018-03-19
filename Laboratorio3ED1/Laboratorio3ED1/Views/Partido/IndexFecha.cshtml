@@ -7,66 +7,67 @@
 <h2>Index Fecha</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateFecha")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Equipo1_)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Equipo2_)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grupo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estadio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Npartido_)
-        </th>
-        <th></th>
-    </tr>
-    @if(Model == null){
+    @Html.ActionLink("Create New", "CreateFecha")|
+    @Html.ActionLink("Buscar", "SearchF")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipo1_)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipo2_)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estadio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Npartido_)
+            </th>
+            <th></th>
+        </tr>
+        @if (Model == null)
+        {
 
 
-    } else
-    {
+        }
+        else
+        {
 
 
 
-foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Equipo1_)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Equipo2_)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grupo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estadio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Npartido_)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-    }
-}
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Equipo1_)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Equipo2_)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Grupo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estadio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Npartido_)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteFecha", new { id = item.Fecha.ToBinary(), equipo1 = item.Equipo1_, equipo2 = item.Equipo2_ })
+                    </td>
+                </tr>
+            }
+        }
 
-</table>
+    </table>

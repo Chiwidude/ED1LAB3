@@ -290,10 +290,12 @@ namespace EstructuraDeDatos
         }
         private void Infijo_(Nodo<T> node)
         {
-           
-            Infijo_(node.Izquierdo);
-            mylist.Add(node.value);
-            Infijo_(node.Derecho);
+            if (node != null)
+            {
+                Infijo_(node.Izquierdo);
+                mylist.Add(node.value);
+                Infijo_(node.Derecho);
+            }
         }
        public  List<T> Infijo()
         {
@@ -322,6 +324,7 @@ namespace EstructuraDeDatos
         #region Rotaciones
         protected void RotaciónDerecha(Nodo<T> nodo)
         {
+            var timer = new LogFile();
             var Rootparent = nodo.Padre;
             var Q = nodo as Nodo<T>;
             var P = Q.Izquierdo as Nodo<T>;
@@ -365,7 +368,7 @@ namespace EstructuraDeDatos
                 P.Factor = 0;
             }
 
-
+            timer.Logcreate("Rotación Simple a la Derecha");
 
 
 
@@ -373,6 +376,7 @@ namespace EstructuraDeDatos
 
         protected void RotaciónIzquierda(Nodo<T> nodo)
         {
+            var timer = new LogFile();
             var RootNode = nodo.Padre;
             var P = nodo;
             var Q = P.Derecho;
@@ -412,11 +416,13 @@ namespace EstructuraDeDatos
                 P.Factor = 0;
                 Q.Factor = 0;
             }
+            timer.Logcreate("Rotación Simple a la Izquierda");
             
         }
 
         protected void RotacionDDerecha(Nodo<T> nodo)
         {
+            var timer = new LogFile();
             var RootParent = nodo.Padre;
             var P = nodo as Nodo<T>;
             var Q = P.Izquierdo;
@@ -451,6 +457,7 @@ namespace EstructuraDeDatos
             if (B != null)
                 B.Padre = Q;
             if(C != null)
+
             {
                 C.Padre = P;
             }
@@ -476,11 +483,13 @@ namespace EstructuraDeDatos
                     }break;
             }
             R.Factor = 0;
+            timer.Logcreate("Rotación Doble a la derecha");
 
         }
 
         protected void RotacionDIzquierda(Nodo<T> nodo)
         {
+            var timer = new LogFile();
             var RParent = nodo.Padre;
             var P = nodo;
             var Q = nodo.Derecho;
@@ -537,7 +546,7 @@ namespace EstructuraDeDatos
                     break;
             }
 
-
+            timer.Logcreate("Rotación Doble a la Izquierda");
 
 
         }

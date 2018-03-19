@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Laboratorio3ED1.Models.Partido>
+
+@{
+    ViewBag.Title = "SearchResult";
+}
+
+<h2>SearchResult</h2>
+
+<p>
+    @Html.ActionLink("Back To List", "IndexFecha")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipo1_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipo2_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estadio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Npartido_)
+        </th>
+        <th></th>
+    </tr>
+@if (Model == null)
+{
+
+}
+else
+{
+    foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipo1_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipo2_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grupo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estadio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Npartido_)
+        </td>
+        <td>
+        </td>
+    </tr>
+    }
+}
+
+</table>
