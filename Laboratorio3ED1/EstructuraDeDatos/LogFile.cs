@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EstructuraDeDatos
 {
-    class LogFile
+    public class LogFile
     {
         private Stopwatch time;
 

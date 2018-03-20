@@ -35,6 +35,7 @@ namespace Laboratorio3ED1.Models
         }
         public Partido()
         {
+            this.Fecha = new DateTime();
             this.Equipo1_ = null;
             this.Equipo2_ = null;
             this.Estadio = null;
@@ -42,6 +43,25 @@ namespace Laboratorio3ED1.Models
             this.Npartido_ = default(int);
         }
 
+        [Display(Name = "Fecha de partido")]
+        public DateTime Fecha { get { return fecha; } set { fecha = value; } }
+
+        [Display(Name = "País 1")]
+        public string Equipo1_ { get { return Equipo1; } set { Equipo1 = value; } }
+
+        [Display(Name = "País 2")]
+        public string Equipo2_ { get { return Equipo2; } set { Equipo2 = value; } }
+
+        [Display(Name = "Grupo")]
+        public string Grupo { get { return grupo; } set { grupo = value; } }
+
+        [Display(Name = "Estadio")]
+        public string Estadio { get { return estadio; } set { estadio = value; } }
+
+        [Display(Name = "No. de Partido")]
+        public int Npartido_ { get { return Npartido; } set { Npartido = value; } }
+
+        /*
         [Display(Name = "Fecha de partido")]
         public DateTime Fecha { get => fecha; set => fecha = value; }
         [Display(Name = "País 1")]
@@ -54,7 +74,7 @@ namespace Laboratorio3ED1.Models
         public string Estadio { get => estadio; set => estadio = value; }
         [Display(Name = "No. de Partido")]
         public int Npartido_ { get => Npartido; set => Npartido = value; }
-
+        */
         public int CompareTo(object obj)
         {
             throw new NotImplementedException();

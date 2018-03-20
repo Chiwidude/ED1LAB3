@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Clases\Archivo_Json.cs" />
     <Compile Include="Clases\Comparador.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartidoController.cs" />
@@ -197,6 +198,8 @@
     <Content Include="Views\Partido\SearchF.cshtml" />
     <Content Include="Views\Partido\SearchN.cshtml" />
     <Content Include="Views\Partido\NSearchResult.cshtml" />
+    <Content Include="Views\Partido\JsonFile.cshtml" />
+    <Content Include="Views\Partido\UploadPartido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
